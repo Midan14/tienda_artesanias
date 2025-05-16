@@ -1,3 +1,4 @@
+<!-- trunk-ignore-all(prettier) -->
 # Artesanías Ancestrales - Tienda Online
 
 Sitio web para la venta de artesanías indígenas colombianas.
@@ -6,93 +7,92 @@ Sitio web para la venta de artesanías indígenas colombianas.
 
 Artesanías Ancestrales es una tienda online dedicada a la comercialización de productos artesanales elaborados por comunidades indígenas de Colombia. La plataforma busca crear un puente entre los artesanos y el mercado global, promoviendo el comercio justo y la preservación de técnicas ancestrales.
 
-## Características
+## Características Principales
 
-- Catálogo de productos artesanales con filtrado por categorías
-- Carrito de compras con persistencia de datos mediante LocalStorage
-- Filtrado de productos por categorías de navegación mejorado
-- Formulario de contactoas de productos
-- Sección informativa sobre comunidades indígenassta previa
-- Diseño responsivo para dispositivos móviles
-- Sección de ofertas con descuentos especiales
-## Funcionalidades destacadase artesanías y tradiciones
-- Sistema de gestión de cuenta de usuario (registro e inicio de sesión)
-### Menú de navegación mejoradolario de contacto
-- Barra de navegación moderna con menú desplegableión informativa sobre comunidades indígenas
-- Adaptable a dispositivos móviles con botón hamburguesate responsivo para dispositivos móviles
-- Iconos intuitivos para mejor experiencia de usuario
-## Tecnologías utilizadas
-### Sistema de carrito avanzado
-- Vista previa del carrito al hacer hover/click- HTML5
-- Contador de productos en tiempo realSS3
-- Persistencia de datos entre sesionesla
+### Sistema de Usuarios
+
+- Registro e inicio de sesión de usuarios
+- Gestión de cuenta personal
+- Seguimiento de pedidos
+
+### Catálogo y Compras
+
+- Catálogo completo de productos artesanales
+- Filtrado de productos por categorías
+- Sistema de carrito de compras con persistencia (LocalStorage)
+- Vista previa del carrito flotante
+- Contador de productos en tiempo real
 - Notificaciones visuales al añadir/remover productos
 
-### Páginas especializadas
-- **Novedades**: Presenta los productos más recientes
-- **Ofertas**: Muestra productos con descuentos y promociones especiales
-- **Blog**: Artículos sobre artesanías, tradiciones y comunidades indígenasartesanias
-- **Cuenta de usuario**: Registro, inicio de sesión y gestión de pedidoscipal
-ductos.html      # Catálogo de productos
-### Optimización mobile-first
-- Diseño responsivo que se adapta a cualquier tamaño de pantallanosotros
-- Menú de navegación que se transforma en dispositivos móviles contacto.html       # Página de contacto
-- Elementos táctiles optimizados para uso en pantallas táctiles├── novedades.html      # Nuevos productos
-ml        # Productos en oferta
-## Tecnologías utilizadas├── blog.html           # Blog con artículos sobre artesanías
+### Navegación y Diseño
+
+- Diseño responsivo mobile-first
+- Menú de navegación moderno con versión móvil
+- Elementos optimizados para pantallas táctiles
+- Interfaz intuitiva con iconografía clara
+
+### Secciones Especiales
+
+- Página de novedades con últimos productos
+- Sección de ofertas y descuentos
+- Blog informativo sobre artesanías y tradiciones
+- Información sobre comunidades indígenas
+- Formulario de contacto
+
+## Tecnologías Utilizadas
 
 - HTML5
-- CSS3│   └── style.css       # Estilos CSS
-- JavaScript vanilla
-- LocalStorage para persistencia de datos│   ├── carrito.js      # Funcionalidad del carrito
-─ menu.js         # Funcionalidad del menú de navegación
-## Estructura del proyecto└── /img                # Imágenes del sitio
+- CSS3
+- JavaScript (Vanilla)
+- LocalStorage para persistencia de datos
 
-```as y Blog
-/tienda-artesaniasndo el menú desplegable
-├── index.html          # Página principalaciendo clic en "Añadir al Carrito"
-├── productos.html      # Catálogo de productos5. Revisa el contenido del carrito mediante el icono flotante
-├── carrito.html        # Carrito de comprasdido completo en la página "Carrito"
-├── about.html          # Información sobre nosotros7. Regístrate o inicia sesión para gestionar tu cuenta y realizar seguimiento de pedidos
+## Estructura del Proyecto
+
+```text
+tienda-artesanias/
+├── index.html          # Página principal
+├── productos.html      # Catálogo de productos
+├── carrito.html        # Carrito de compras
+├── about.html          # Información sobre nosotros
 ├── contacto.html       # Página de contacto
-├── /css2. Abre el archivo `index.html` en tu navegador
-│   └── style.css       # Estilos CSS
-├── /jsNo se requiere ninguna instalación adicional ya que es un proyecto estático sin dependencias externas.
-│   └── carrito.js      # Funcionalidad del carrito
-└── /img                # Imágenes del sitio## Uso
+├── blog.html          # Blog informativo
+├── cuenta.html        # Gestión de cuenta
+├── novedades.html     # Nuevos productos
+├── ofertas.html       # Productos en oferta
+├── css/
+│   └── style.css      # Estilos CSS
+├── js/
+│   ├── carrito.js     # Funcionalidad del carrito
+│   ├── menu.js        # Funcionalidad del menú
+│   └── productos.js   # Gestión de productos
+└── img/               # Imágenes del sitio
+
 ```
-1. Navega por el catálogo en "Productos"
+
 ## Instalación
-3. Revisa tu pedido en la página "Carrito"
-1. Clona este repositorio: `git clone https://github.com/tuusuario/tienda-artesanias.git`Completa el proceso de compra
+
+1. Clona este repositorio:
+
+   ```bash
+   git clone <https://github.com/Midan14/tienda_artesanias.git>
+   ```
+
 2. Abre el archivo `index.html` en tu navegador
 
 No se requiere ninguna instalación adicional ya que es un proyecto estático sin dependencias externas.
 
+## Uso
 
+1. Navega por el catálogo en la sección "Productos"
+2. Agrega artículos al carrito usando el botón "Añadir al Carrito"
+3. Revisa el carrito haciendo hover/click en el icono flotante
+4. Gestiona tu pedido en la página "Carrito"
+5. Regístrate o inicia sesión para completar tu compra
+6. Explora el blog y secciones informativas sobre las comunidades indígenas
 
+## Contribuciones
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Desarrollado con ❤️ para apoyar a las comunidades indígenas de Colombia---Miguel Antonio - [tu-email@ejemplo.com](mailto:tu-email@ejemplo.com)## Contacto[MIT](https://choosealicense.com/licenses/mit/)## LicenciaLas contribuciones son bienvenidas. Para cambios importantes, por favor abre primero un issue para discutir qué te gustaría cambiar.## Contribuciones4. Completa el proceso de compra3. Revisa tu pedido en la página "Carrito"2. Agrega artículos al carrito haciendo clic en "Añadir al Carrito"1. Navega por el catálogo en "Productos"## UsoLas contribuciones son bienvenidas. Para cambios importantes, por favor abre primero un issue para discutir qué te gustaría cambiar.
+Las contribuciones son bienvenidas. Para cambios importantes, por favor abre primero un issue para discutir qué te gustaría cambiar.
 
 ## Licencia
 
@@ -100,8 +100,6 @@ Desarrollado con ❤️ para apoyar a las comunidades indígenas de Colombia---M
 
 ## Contacto
 
-Miguel Antonio - [tu-email@ejemplo.com](mailto:tu-email@ejemplo.com)
-
----
+Miguel Antonio Moscote - <mmoscot25613@universidadean.edu.com>
 
 Desarrollado con ❤️ para apoyar a las comunidades indígenas de Colombia
