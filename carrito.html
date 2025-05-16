@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrito de Compras - Artesanías Ancestrales</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <div class="logo-container">
+          <h1>Artesanías Ancestrales</h1>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+          <ul>
+            <li>
+              <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+            </li>
+            <li class="dropdown">
+              <a href="productos.html"
+                ><i class="fas fa-store"></i> Productos</a
+              >
+              <div class="dropdown-content">
+                <a href="productos.html?categoria=textiles">Textiles</a>
+                <a href="productos.html?categoria=joyeria">Joyería</a>
+                <a href="productos.html?categoria=ceramica">Cerámica</a>
+              </div>
+            </li>
+            <li>
+              <a href="novedades.html"><i class="fas fa-star"></i> Novedades</a>
+            </li>
+            <li>
+              <a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a>
+            </li>
+            <li>
+              <a href="about.html"
+                ><i class="fas fa-users"></i> Sobre Nosotros</a
+              >
+            </li>
+            <li>
+              <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+            </li>
+            <li>
+              <a href="contacto.html"
+                ><i class="fas fa-envelope"></i> Contacto</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-icons">
+          <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+            <i class="fas fa-user"></i>
+          </a>
+          <a
+            href="carrito.html"
+            class="icon-link"
+            aria-label="Carrito de compras"
+          >
+            <i class="fas fa-shopping-cart"></i>
+            <span class="badge" id="cart-counter">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="carrito-section">
+        <h2>Tu Carrito de Compras</h2>
+        <div class="carrito-contenedor">
+          <div class="carrito-items">
+            <div id="carrito-container" class="carrito-lista"></div>
+          </div>
+          <div class="carrito-resumen">
+            <h3>Resumen de Compra</h3>
+            <div class="resumen-item">
+              <span>Subtotal:</span>
+              <span id="total">$0</span>
+            </div>
+            <div class="resumen-item">
+              <span>Envío:</span>
+              <span>Gratis</span>
+            </div>
+            <hr />
+            <div class="resumen-item total">
+              <span>Total:</span>
+              <span id="total-final">$0</span>
+            </div>
+            <button
+              class="btn btn-pagar"
+              onclick="procesarPago()"
+              id="btn-pagar"
+            >
+              Proceder al Pago
+            </button>
+            <button class="btn btn-vaciar" onclick="vaciarCarrito()">
+              Vaciar Carrito
+            </button>
+            <a href="productos.html" class="btn btn-seguir">Seguir Comprando</a>
+          </div>
+        </div>
+      </section>
+      <script src="js/carrito.js"></script>
+    </main>
+    <footer>
+      <div>
+        <p>
+          &copy; 2025 Artesanías Ancestrales - Todos los derechos reservados
+        </p>
+        <div class="social-media">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </footer>
+    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/menu.js"></script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contacto - Artesanías Ancestrales</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container">
+        <h1>Artesanías Ancestrales</h1>
+      </div>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+          <li class="dropdown">
+            <a href="productos.html"><i class="fas fa-store"></i> Productos</a>
+            <div class="dropdown-content">
+              <a href="productos.html?categoria=textiles">Textiles</a>
+              <a href="productos.html?categoria=joyeria">Joyería</a>
+              <a href="productos.html?categoria=ceramica">Cerámica</a>
+            </div>
+          </li>
+          <li><a href="novedades.html"><i class="fas fa-star"></i> Novedades</a></li>
+          <li><a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a></li>
+          <li><a href="about.html"><i class="fas fa-users"></i> Sobre Nosotros</a></li>
+          <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-icons">
+        <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+          <i class="fas fa-user"></i>
+        </a>
+        <a href="carrito.html" class="icon-link" aria-label="Carrito de compras" onclick="mostrarPreviewCarrito(); return false;">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cart-counter">0</span>
+        </a>
+        <div class="cart-preview" id="cart-preview" aria-hidden="true">
+          <h3>Tu Carrito</h3>
+          <div id="cart-preview-items"></div>
+          <div class="cart-preview-total">
+            <p>Total: <span id="cart-preview-total">$0</span></p>
+          </div>
+          <div class="cart-preview-buttons">
+            <a href="carrito.html" class="btn btn-ver-carrito">Ver Carrito</a>
+            <button class="btn btn-vaciar-mini" onclick="vaciarCarrito()">Vaciar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <section>
+      <h2>Contáctanos</h2>
+      <p>Estamos aquí para responder tus preguntas y escuchar tus comentarios. Completa el formulario a continuación o utiliza alguno de los medios de contacto proporcionados.</p>
+      
+      <div class="contacto-container" style="display: flex; gap: 2rem; margin-top: 2rem;">
+        <div class="contacto-info" style="flex: 1;">
+          <h3>Información de Contacto</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Dirección: Calle Artesanos #123, Bogotá, Colombia</p>
+          <p><i class="fas fa-phone"></i> Teléfono: (+57) 301 123 4567</p>
+          <p><i class="fas fa-envelope"></i> Email: info@artesaniasancestrales.com</p>
+          <p><i class="fas fa-clock"></i> Horario de atención: Lunes a Viernes 9:00 AM - 6:00 PM</p>
+          
+          <div class="mapa" style="margin-top: 2rem;">
+            <h3>Nuestra Ubicación</h3>
+            <div style="width: 100%; height: 300px; background-color: #eee; display: flex; justify-content: center; align-items: center; border-radius: 8px;">
+              <p>Mapa de Google aquí</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contacto-form">
+          <h3>Envíanos un Mensaje</h3>
+          <form id="form-contacto" onsubmit="enviarFormulario(event)">
+            <div class="form-group">
+              <label for="nombre">Nombre Completo</label>
+              <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Correo Electrónico</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono">
+            </div>
+            
+            <div class="form-group">
+              <label for="asunto">Asunto</label>
+              <input type="text" id="asunto" name="asunto" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn" style="width: 100%;">Enviar Mensaje</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div>
+      <p>&copy; 2025 Artesanías Ancestrales - Todos los derechos reservados</p>
+      <div class="social-media">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    function enviarFormulario(event) {
+      event.preventDefault();
+      
+      // Obtener datos del formulario
+      const nombre = document.getElementById('nombre').value;
+      const email = document.getElementById('email').value;
+      const telefono = document.getElementById('telefono').value;
+      const asunto = document.getElementById('asunto').value;
+      const mensaje = document.getElementById('mensaje').value;
+      
+      // Aquí se integraría con un backend real
+      console.log("Formulario enviado:", { nombre, email, telefono, asunto, mensaje });
+      
+      // Mostrar mensaje de éxito
+      alert('¡Gracias por tu mensaje! Te responderemos a la brevedad.');
+      
+      // Limpiar formulario
+      document.getElementById('form-contacto').reset();
+    }
+  </script>
+  <script src="js/carrito.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

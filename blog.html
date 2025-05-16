@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Artesanías Ancestrales</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Estilos específicos para el blog */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    .blog-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .blog-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .blog-content {
+      padding: 1.5rem;
+    }
+    
+    .blog-date {
+      color: #777;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .blog-excerpt {
+      margin: 1rem 0;
+      color: #666;
+    }
+    
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    
+    .tag {
+      background-color: #f1f1f1;
+      color: #666;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .blog-cta {
+      margin-top: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container">
+        <h1>Artesanías Ancestrales</h1>
+      </div>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+          <li class="dropdown">
+            <a href="productos.html"><i class="fas fa-store"></i> Productos</a>
+            <div class="dropdown-content">
+              <a href="productos.html?categoria=textiles">Textiles</a>
+              <a href="productos.html?categoria=joyeria">Joyería</a>
+              <a href="productos.html?categoria=ceramica">Cerámica</a>
+            </div>
+          </li>
+          <li><a href="novedades.html"><i class="fas fa-star"></i> Novedades</a></li>
+          <li><a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a></li>
+          <li><a href="about.html"><i class="fas fa-users"></i> Sobre Nosotros</a></li>
+          <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-icons">
+        <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+          <i class="fas fa-user"></i>
+        </a>
+        <a href="carrito.html" class="icon-link" aria-label="Carrito de compras" onclick="mostrarPreviewCarrito(); return false;">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cart-counter">0</span>
+        </a>
+        <div class="cart-preview" id="cart-preview" aria-hidden="true">
+          <h3>Tu Carrito</h3>
+          <div id="cart-preview-items"></div>
+          <div class="cart-preview-total">
+            <p>Total: <span id="cart-preview-total">$0</span></p>
+          </div>
+          <div class="cart-preview-buttons">
+            <a href="carrito.html" class="btn btn-ver-carrito">Ver Carrito</a>
+            <button class="btn btn-vaciar-mini" onclick="vaciarCarrito()">Vaciar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <h2>Blog de Artesanías</h2>
+      <p>Conoce más sobre el arte indígena, sus técnicas ancestrales y las historias detrás de cada pieza.</p>
+    </section>
+
+    <section>
+      <h2>Artículos Recientes</h2>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <img src="https://via.placeholder.com/600x400?text=Tejido+Wayuu" alt="El Arte del Tejido Wayuu" class="blog-img">
+          <div class="blog-content">
+            <p class="blog-date">15 de mayo de 2025</p>
+            <h3>El Arte del Tejido Wayuu: Una Tradición Milenaria</h3>
+            <p class="blog-excerpt">Las mujeres Wayuu transmiten de generación en generación esta técnica de tejido que representa su cosmogonía y conexión con la naturaleza...</p>
+            <div class="tags">
+              <span class="tag">Textiles</span>
+              <span class="tag">Wayuu</span>
+              <span class="tag">Tradición</span>
+            </div>
+            <a href="#" class="btn">Leer más</a>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <img src="https://via.placeholder.com/600x400?text=Cerámica+Amazónica" alt="Cerámica Amazónica" class="blog-img">
+          <div class="blog-content">
+            <p class="blog-date">8 de mayo de 2025</p>
+            <h3>Cerámica Amazónica: Tintes Naturales y Simbología</h3>
+            <p class="blog-excerpt">Los artesanos de la Amazonía colombiana utilizan pigmentos extraídos de plantas, minerales y arcillas para crear piezas únicas con profundo significado cultural...</p>
+            <div class="tags">
+              <span class="tag">Cerámica</span>
+              <span class="tag">Amazonía</span>
+              <span class="tag">Tintes Naturales</span>
+            </div>
+            <a href="#" class="btn">Leer más</a>
+          </div>
+        </article>
+
+        <article class="blog-card">
+          <img src="https://via.placeholder.com/600x400?text=Joyería+Embera" alt="Joyería Embera" class="blog-img">
+          <div class="blog-content">
+            <p class="blog-date">29 de abril de 2025</p>
+            <h3>Joyería Embera: El Significado de los Colores y Formas</h3>
+            <p class="blog-excerpt">Cada color y forma en los collares y pulseras Embera tiene un significado específico, relacionado con su cosmovisión y espiritualidad...</p>
+            <div class="tags">
+              <span class="tag">Joyería</span>
+              <span class="tag">Embera</span>
+              <span class="tag">Simbología</span>
+            </div>
+            <a href="#" class="btn">Leer más</a>
+          </div>
+        </article>
+      </div>
+      
+      <div class="blog-cta">
+        <a href="#" class="btn">Ver más artículos</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Categorías del Blog</h2>
+      <div class="categorias">
+        <a href="#" class="btn">Técnicas Ancestrales</a>
+        <a href="#" class="btn">Comunidades Indígenas</a>
+        <a href="#" class="btn">Materiales Naturales</a>
+        <a href="#" class="btn">Simbología</a>
+        <a href="#" class="btn">Comercio Justo</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>¿Quieres recibir nuestras actualizaciones?</h2>
+      <p>Suscríbete a nuestro boletín para recibir los nuevos artículos y ofertas exclusivas.</p>
+      
+      <form class="contacto-form" style="max-width: 500px; margin: 2rem auto;">
+        <div class="form-group">
+          <label for="email-blog">Tu correo electrónico</label>
+          <input type="email" id="email-blog" name="email" required placeholder="correo@ejemplo.com">
+        </div>
+        <button type="submit" class="btn" style="width: 100%;">Suscribirme</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <p>&copy; 2025 Artesanías Ancestrales - Todos los derechos reservados</p>
+      <div class="social-media">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/carrito.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

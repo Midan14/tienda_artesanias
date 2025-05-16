@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Cuenta - Artesanías Ancestrales</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Estilos específicos para la página de cuenta */
+      .account-container {
+        display: flex;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .account-sidebar {
+        flex: 1;
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        align-self: flex-start;
+      }
+
+      .account-content {
+        flex: 3;
+        background-color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .account-menu {
+        list-style: none;
+        padding: 0;
+      }
+
+      .account-menu li {
+        margin-bottom: 1rem;
+      }
+
+      .account-menu a {
+        display: block;
+        padding: 0.8rem 1rem;
+        color: var(--color-text);
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+      }
+
+      .account-menu a:hover {
+        background-color: #f1f1f1;
+      }
+
+      .account-menu a.active {
+        background-color: var(--color-primary);
+        color: white;
+      }
+
+      .account-menu i {
+        margin-right: 10px;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .user-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        margin-right: 1.5rem;
+      }
+
+      .user-details h3 {
+        margin: 0 0 0.5rem;
+      }
+
+      .order-card {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .order-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .order-items {
+        margin-bottom: 1rem;
+      }
+
+      .order-total {
+        font-weight: bold;
+        text-align: right;
+      }
+
+      .order-status {
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+      }
+
+      .status-completed {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .status-processing {
+        background-color: #2196f3;
+        color: white;
+      }
+
+      .login-register-tabs {
+        display: flex;
+        margin-bottom: 2rem;
+      }
+
+      .login-register-tabs button {
+        flex: 1;
+        padding: 1rem;
+        background-color: #f5f5f5;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      .login-register-tabs button.active {
+        background-color: var(--color-primary);
+        color: white;
+      }
+
+      @media (max-width: 768px) {
+        .account-container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <div class="logo-container">
+          <h1>Artesanías Ancestrales</h1>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+          <ul>
+            <li>
+              <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+            </li>
+            <li class="dropdown">
+              <a href="productos.html"
+                ><i class="fas fa-store"></i> Productos</a
+              >
+              <div class="dropdown-content">
+                <a href="productos.html?categoria=textiles">Textiles</a>
+                <a href="productos.html?categoria=joyeria">Joyería</a>
+                <a href="productos.html?categoria=ceramica">Cerámica</a>
+              </div>
+            </li>
+            <li>
+              <a href="novedades.html"><i class="fas fa-star"></i> Novedades</a>
+            </li>
+            <li>
+              <a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a>
+            </li>
+            <li>
+              <a href="about.html"
+                ><i class="fas fa-users"></i> Sobre Nosotros</a
+              >
+            </li>
+            <li>
+              <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+            </li>
+            <li>
+              <a href="contacto.html"
+                ><i class="fas fa-envelope"></i> Contacto</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <div class="header-icons">
+          <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+            <i class="fas fa-user"></i>
+          </a>
+          <a
+            href="carrito.html"
+            class="icon-link"
+            aria-label="Carrito de compras"
+            onclick="mostrarPreviewCarrito(); return false;"
+          >
+            <i class="fas fa-shopping-cart"></i>
+            <span class="badge" id="cart-counter">0</span>
+          </a>
+          <div class="cart-preview" id="cart-preview" aria-hidden="true">
+            <h3>Tu Carrito</h3>
+            <div id="cart-preview-items"></div>
+            <div class="cart-preview-total">
+              <p>Total: <span id="cart-preview-total">$0</span></p>
+            </div>
+            <div class="cart-preview-buttons">
+              <a href="carrito.html" class="btn">Ver Carrito</a>
+              <button class="btn" onclick="vaciarCarrito()">Vaciar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-section">
+        <h2>Mi Cuenta</h2>
+        <p>Gestiona tus datos personales, pedidos y preferencias.</p>
+      </section>
+
+      <!-- Contenedor para login/registro (mostrado si no hay sesión iniciada) -->
+      <section id="auth-section">
+        <div class="login-register-tabs">
+          <button class="tab-button active" data-tab="login-tab">
+            Iniciar Sesión
+          </button>
+          <button class="tab-button" data-tab="register-tab">
+            Registrarse
+          </button>
+        </div>
+
+        <div id="login-tab" class="tab-content active">
+          <form class="contacto-form">
+            <div class="form-group">
+              <label for="login-email">Correo Electrónico</label>
+              <input type="email" id="login-email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">Contraseña</label>
+              <input
+                type="password"
+                id="login-password"
+                name="password"
+                required
+              />
+            </div>
+
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+              "
+            >
+              <label>
+                <input type="checkbox" name="remember" /> Recordarme
+              </label>
+              <a href="#" style="color: var(--color-primary)"
+                >¿Olvidaste tu contraseña?</a
+              >
+            </div>
+
+            <button
+              type="button"
+              onclick="iniciarSesion()"
+              class="btn"
+              style="width: 100%"
+            >
+              Iniciar Sesión
+            </button>
+          </form>
+        </div>
+
+        <div id="register-tab" class="tab-content">
+          <form class="contacto-form">
+            <div class="form-group">
+              <label for="register-name">Nombre Completo</label>
+              <input type="text" id="register-name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="register-email">Correo Electrónico</label>
+              <input type="email" id="register-email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="register-password">Contraseña</label>
+              <input
+                type="password"
+                id="register-password"
+                name="password"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="register-confirm-password"
+                >Confirmar Contraseña</label
+              >
+              <input
+                type="password"
+                id="register-confirm-password"
+                name="confirm-password"
+                required
+              />
+            </div>
+
+            <div style="margin-bottom: 1rem">
+              <label>
+                <input type="checkbox" name="terms" required /> Acepto los
+                <a href="#" style="color: var(--color-primary)"
+                  >Términos y Condiciones</a
+                >
+              </label>
+            </div>
+
+            <button
+              type="button"
+              onclick="registrarUsuario()"
+              class="btn"
+              style="width: 100%"
+            >
+              Registrarse
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Contenedor para la información de cuenta (mostrado si hay sesión iniciada) -->
+      <section id="account-section" style="display: none">
+        <div class="account-container">
+          <aside class="account-sidebar">
+            <div class="user-info">
+              <div class="user-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="user-details">
+                <h3>Usuario Ejemplo</h3>
+                <p>usuario@ejemplo.com</p>
+              </div>
+            </div>
+
+            <ul class="account-menu">
+              <li>
+                <a href="#" class="active" data-tab="dashboard"
+                  ><i class="fas fa-tachometer-alt"></i> Panel Principal</a
+                >
+              </li>
+              <li>
+                <a href="#" data-tab="orders"
+                  ><i class="fas fa-shopping-bag"></i> Mis Pedidos</a
+                >
+              </li>
+              <li>
+                <a href="#" data-tab="address"
+                  ><i class="fas fa-map-marker-alt"></i> Direcciones</a
+                >
+              </li>
+              <li>
+                <a href="#" data-tab="account-details"
+                  ><i class="fas fa-user-edit"></i> Detalles de Cuenta</a
+                >
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="account-menu-button"
+                  onclick="cerrarSesion()"
+                >
+                  <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+              </li>
+            </ul>
+          </aside>
+
+          <div class="account-content">
+            <div id="dashboard" class="tab-content active">
+              <h2>Panel Principal</h2>
+              <p>
+                Bienvenido a tu cuenta en Artesanías Ancestrales. Desde aquí
+                puedes gestionar tus pedidos, direcciones y detalles de cuenta.
+              </p>
+
+              <h3>Resumen</h3>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                  gap: 1rem;
+                  margin: 2rem 0;
+                "
+              >
+                <div
+                  style="
+                    padding: 1.5rem;
+                    background-color: #f5f5f5;
+                    border-radius: 8px;
+                    text-align: center;
+                  "
+                >
+                  <i
+                    class="fas fa-shopping-bag"
+                    style="
+                      font-size: 2rem;
+                      color: var(--color-primary);
+                      margin-bottom: 1rem;
+                    "
+                  ></i>
+                  <h4>Pedidos</h4>
+                  <p style="font-size: 1.5rem">2</p>
+                </div>
+
+                <div
+                  style="
+                    padding: 1.5rem;
+                    background-color: #f5f5f5;
+                    border-radius: 8px;
+                    text-align: center;
+                  "
+                >
+                  <i
+                    class="fas fa-heart"
+                    style="
+                      font-size: 2rem;
+                      color: var(--color-primary);
+                      margin-bottom: 1rem;
+                    "
+                  ></i>
+                  <h4>Lista de Deseos</h4>
+                  <p style="font-size: 1.5rem">5</p>
+                </div>
+
+                <div
+                  style="
+                    padding: 1.5rem;
+                    background-color: #f5f5f5;
+                    border-radius: 8px;
+                    text-align: center;
+                  "
+                >
+                  <i
+                    class="fas fa-tag"
+                    style="
+                      font-size: 2rem;
+                      color: var(--color-primary);
+                      margin-bottom: 1rem;
+                    "
+                  ></i>
+                  <h4>Cupones</h4>
+                  <p style="font-size: 1.5rem">1</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="orders" class="tab-content">
+              <h2>Mis Pedidos</h2>
+              <div class="order-card">
+                <div class="order-header">
+                  <div>
+                    <strong>Pedido #1001</strong>
+                    <p>Fecha: 10/05/2025</p>
+                  </div>
+                  <span class="order-status status-completed">Completado</span>
+                </div>
+                <div class="order-items">
+                  <p>2 x Mochila Wayuu</p>
+                  <p>1 x Collar Embera</p>
+                </div>
+                <div class="order-total">Total: $285.000</div>
+              </div>
+
+              <div class="order-card">
+                <div class="order-header">
+                  <div>
+                    <strong>Pedido #998</strong>
+                    <p>Fecha: 28/04/2025</p>
+                  </div>
+                  <span class="order-status status-processing">En proceso</span>
+                </div>
+                <div class="order-items">
+                  <p>1 x Vasija Decorativa</p>
+                  <p>2 x Pulsera Kogi</p>
+                </div>
+                <div class="order-total">Total: $165.000</div>
+              </div>
+            </div>
+
+            <div id="address" class="tab-content">
+              <h2>Mis Direcciones</h2>
+              <div class="order-card">
+                <h3>Dirección Principal</h3>
+                <p>
+                  Juan Pérez<br />
+                  Calle 45 #12-34, Apto 502<br />
+                  Bogotá, Colombia<br />
+                  Teléfono: 300 123 4567
+                </p>
+                <button class="btn">Editar</button>
+              </div>
+
+              <button class="btn" style="margin-top: 1rem">
+                Agregar Nueva Dirección
+              </button>
+            </div>
+
+            <div id="account-details" class="tab-content">
+              <h2>Detalles de Cuenta</h2>
+              <form class="contacto-form">
+                <div class="form-group">
+                  <label for="account-name">Nombre Completo</label>
+                  <input
+                    type="text"
+                    id="account-name"
+                    name="name"
+                    value="Usuario Ejemplo"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="account-email">Correo Electrónico</label>
+                  <input
+                    type="email"
+                    id="account-email"
+                    name="email"
+                    value="usuario@ejemplo.com"
+                    required
+                  />
+                </div>
+
+                <h3>Cambiar Contraseña</h3>
+                <div class="form-group">
+                  <label for="current-password">Contraseña Actual</label>
+                  <input
+                    type="password"
+                    id="current-password"
+                    name="current-password"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="new-password">Nueva Contraseña</label>
+                  <input
+                    type="password"
+                    id="new-password"
+                    name="new-password"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="confirm-new-password"
+                    >Confirmar Nueva Contraseña</label
+                  >
+                  <input
+                    type="password"
+                    id="confirm-new-password"
+                    name="confirm-new-password"
+                  />
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%">
+                  Actualizar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <p>
+          &copy; 2025 Artesanías Ancestrales - Todos los derechos reservados
+        </p>
+        <div class="social-media">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Funciones para la página de cuenta
+      document.addEventListener("DOMContentLoaded", function () {
+        // Cambiar pestañas de login/registro
+        const tabButtons = document.querySelectorAll(".tab-button");
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Desactivar todas las pestañas y botones
+            document
+              .querySelectorAll(".tab-button")
+              .forEach((btn) => btn.classList.remove("active"));
+            document
+              .querySelectorAll("#auth-section .tab-content")
+              .forEach((tab) => tab.classList.remove("active"));
+
+            // Activar la pestaña seleccionada
+            this.classList.add("active");
+            document.getElementById(this.dataset.tab).classList.add("active");
+          });
+        });
+
+        // Cambiar pestañas de la cuenta
+        const accountMenuLinks = document.querySelectorAll(".account-menu a");
+        accountMenuLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            if (this.dataset.tab) {
+              e.preventDefault();
+
+              // Desactivar todos los enlaces y pestañas
+              document
+                .querySelectorAll(".account-menu a")
+                .forEach((a) => a.classList.remove("active"));
+              document
+                .querySelectorAll(".account-content .tab-content")
+                .forEach((tab) => tab.classList.remove("active"));
+
+              // Activar el enlace y la pestaña seleccionados
+              this.classList.add("active");
+              document.getElementById(this.dataset.tab).classList.add("active");
+            }
+          });
+        });
+
+        // Comprobar si hay un usuario conectado (simulado)
+        const usuarioConectado = localStorage.getItem("usuarioConectado");
+        if (usuarioConectado) {
+          document.getElementById("auth-section").style.display = "none";
+          document.getElementById("account-section").style.display = "block";
+        }
+      });
+
+      function iniciarSesion() {
+        // Simulación de inicio de sesión
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+
+        if (email && password) {
+          // En una aplicación real, se enviarían estos datos al servidor
+          localStorage.setItem(
+            "usuarioConectado",
+            JSON.stringify({
+              email: email,
+              nombre: "Usuario Ejemplo",
+            })
+          );
+
+          // Mostrar la sección de cuenta
+          document.getElementById("auth-section").style.display = "none";
+          document.getElementById("account-section").style.display = "block";
+        } else {
+          alert("Por favor, completa todos los campos");
+        }
+      }
+
+      function registrarUsuario() {
+        // Simulación de registro
+        const name = document.getElementById("register-name").value;
+        const email = document.getElementById("register-email").value;
+        const password = document.getElementById("register-password").value;
+        const confirmPassword = document.getElementById(
+          "register-confirm-password"
+        ).value;
+
+        if (name && email && password && confirmPassword) {
+          if (password !== confirmPassword) {
+            alert("Las contraseñas no coinciden");
+            return;
+          }
+
+          // En una aplicación real, se enviarían estos datos al servidor
+          localStorage.setItem(
+            "usuarioConectado",
+            JSON.stringify({
+              email: email,
+              nombre: name,
+            })
+          );
+
+          // Mostrar la sección de cuenta
+          document.getElementById("auth-section").style.display = "none";
+          document.getElementById("account-section").style.display = "block";
+        } else {
+          alert("Por favor, completa todos los campos");
+        }
+      }
+
+      function cerrarSesion() {
+        // Eliminar los datos del usuario
+        localStorage.removeItem("usuarioConectado");
+
+        // Mostrar la sección de autenticación
+        document.getElementById("auth-section").style.display = "block";
+        document.getElementById("account-section").style.display = "none";
+      }
+    </script>
+    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/menu.js"></script>
+  </body>
+</html>

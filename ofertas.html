@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas - Artesanías Ancestrales</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .precio-original {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 10px;
+    }
+    
+    .precio-oferta {
+      color: #f44336;
+      font-weight: bold;
+    }
+    
+    .badge-oferta {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #f44336;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-weight: bold;
+      z-index: 10;
+    }
+    
+    .contador-oferta {
+      background-color: #f8f8f8;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container">
+        <h1>Artesanías Ancestrales</h1>
+      </div>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+          <li class="dropdown">
+            <a href="productos.html"><i class="fas fa-store"></i> Productos</a>
+            <div class="dropdown-content">
+              <a href="productos.html?categoria=textiles">Textiles</a>
+              <a href="productos.html?categoria=joyeria">Joyería</a>
+              <a href="productos.html?categoria=ceramica">Cerámica</a>
+            </div>
+          </li>
+          <li><a href="novedades.html"><i class="fas fa-star"></i> Novedades</a></li>
+          <li><a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a></li>
+          <li><a href="about.html"><i class="fas fa-users"></i> Sobre Nosotros</a></li>
+          <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-icons">
+        <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+          <i class="fas fa-user"></i>
+        </a>
+        <a href="carrito.html" class="icon-link" aria-label="Carrito de compras" onclick="mostrarPreviewCarrito(); return false;">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge" id="cart-counter">0</span>
+        </a>
+        <div class="cart-preview" id="cart-preview" aria-hidden="true">
+          <h3>Tu Carrito</h3>
+          <div id="cart-preview-items"></div>
+          <div class="cart-preview-total">
+            <p>Total: <span id="cart-preview-total">$0</span></p>
+          </div>
+          <div class="cart-preview-buttons">
+            <a href="carrito.html" class="btn btn-ver-carrito">Ver Carrito</a>
+            <button class="btn btn-vaciar-mini" onclick="vaciarCarrito()">Vaciar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <h2>Ofertas Especiales</h2>
+      <p>Aprovecha nuestros descuentos exclusivos en productos artesanales seleccionados.</p>
+    </section>
+    
+    <section>
+      <h2>Ofertas por Tiempo Limitado</h2>
+      <div class="contador-oferta" id="contador-oferta">
+        La oferta termina en: <span id="countdown">3 días, 12:45:30</span>
+      </div>
+      
+      <div class="productos-grid">
+        <div class="producto-card">
+          <div class="badge-oferta">-30%</div>
+          <img src="https://via.placeholder.com/300x200?text=Mochila+Wayuu" alt="Mochila Wayuu" class="producto-img">
+          <div class="producto-info">
+            <h3>Mochila Wayuu</h3>
+            <p>Mochila tejida a mano por artesanas de La Guajira.</p>
+            <p>
+              <span class="precio-original">$120.000</span>
+              <span class="precio-oferta">$84.000</span>
+            </p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(1, 84000)">Añadir al Carrito</button>
+          </div>
+        </div>
+
+        <div class="producto-card">
+          <div class="badge-oferta">-25%</div>
+          <img src="https://via.placeholder.com/300x200?text=Cerámica+Ticuna" alt="Cerámica Ticuna" class="producto-img">
+          <div class="producto-info">
+            <h3>Cerámica Ticuna</h3>
+            <p>Pieza de cerámica con pigmentos naturales de la Amazonía.</p>
+            <p>
+              <span class="precio-original">$85.000</span>
+              <span class="precio-oferta">$63.750</span>
+            </p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(3, 63750)">Añadir al Carrito</button>
+          </div>
+        </div>
+
+        <div class="producto-card">
+          <div class="badge-oferta">-40%</div>
+          <img src="https://via.placeholder.com/300x200?text=Pulsera+Kogi" alt="Pulsera Kogi" class="producto-img">
+          <div class="producto-info">
+            <h3>Pulsera Kogi</h3>
+            <p>Pulsera tradicional con símbolos de la cosmovisión Kogi.</p>
+            <p>
+              <span class="precio-original">$35.000</span>
+              <span class="precio-oferta">$21.000</span>
+            </p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(5, 21000)">Añadir al Carrito</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <h2>Paquetes Promocionales</h2>
+      <div class="productos-grid">
+        <div class="producto-card">
+          <div class="badge-oferta">Combo</div>
+          <img src="https://via.placeholder.com/300x200?text=Set+de+Joyería" alt="Set de Joyería" class="producto-img">
+          <div class="producto-info">
+            <h3>Set de Joyería</h3>
+            <p>Collar y pulsera Embera con chaquiras naturales.</p>
+            <p>
+              <span class="precio-original">$85.000</span>
+              <span class="precio-oferta">$65.000</span>
+            </p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(10, 65000)">Añadir al Carrito</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <p>&copy; 2025 Artesanías Ancestrales - Todos los derechos reservados</p>
+      <div class="social-media">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Simulación de contador regresivo
+    function actualizarContador() {
+      const ahora = new Date();
+      const finOferta = new Date(ahora);
+      finOferta.setDate(finOferta.getDate() + 3);
+      finOferta.setHours(ahora.getHours() + 12);
+      
+      const diferencia = finOferta - ahora;
+      
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+      
+      document.getElementById('countdown').textContent = `${dias} días, ${horas}:${minutos}:${segundos}`;
+    }
+    
+    // Actualizar el contador cada segundo
+    setInterval(actualizarContador, 1000);
+    actualizarContador();
+  </script>
+  <script src="js/productos.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>
