@@ -76,7 +76,7 @@ const todosLosProductos = [
     precio: 95000,
     categoria: "decoracion",
     descripcion: "Réplica de máscara ceremonial Kamentsá.",
-    imagen: "https://via.placeholder.com/300x200?text=Máscara+Ritual",
+    imagen: "img/Máscara Ritual.png",
     esNovedad: true,
   },
 
