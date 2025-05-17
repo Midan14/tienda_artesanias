@@ -140,6 +140,9 @@ footer {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  display: block; /* Elimina espacio debajo de la imagen */
+  border: none; /* Elimina cualquier borde */
+  margin: 0; /* Elimina márgenes */
 }
 
 .producto-info {
@@ -873,4 +876,13 @@ footer {
   box-sizing: border-box;
   white-space: nowrap;
   font-weight: bold;
+}
+
+/* Estilo específico para corregir la línea en las imágenes */
+img[src*="Máscara Ritual.png"] {
+  display: block;
+  border: none;
+  outline: none;
+  vertical-align: bottom;
+  box-shadow: none;
 }
