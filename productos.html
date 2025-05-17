@@ -1,260 +1,178 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Productos - Artesanías Ancestrales</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <!-- Carrito flotante -->
-    <div class="cart-icon-container">
-      <button
-        class="cart-icon"
-        onclick="mostrarPreviewCarrito()"
-        aria-label="Ver carrito de compras"
-        tabindex="0"
-      >
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-counter" id="cart-counter">0</span>
-      </button>
-      <div class="cart-preview" id="cart-preview" aria-hidden="true">
-        <h3>Tu Carrito</h3>
-        <div id="cart-preview-items"></div>
-        <div class="cart-preview-total">
-          <p>Total: <span id="cart-preview-total">$0</span></p>
-        </div>
-        <div class="cart-preview-buttons">
-          <a href="carrito.html" class="btn btn-ver-carrito">Ver Carrito</a>
-          <button class="btn btn-vaciar-mini" onclick="vaciarCarrito()">
-            Vaciar
-          </button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Productos - Artesanías Ancestrales</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Carrito flotante -->
+  <div class="cart-icon-container">
+    <button class="cart-icon" onclick="mostrarPreviewCarrito()" aria-label="Ver carrito de compras" tabindex="0">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-counter" id="cart-counter">0</span>
+    </button>
+    <div class="cart-preview" id="cart-preview" aria-hidden="true">
+      <h3>Tu Carrito</h3>
+      <div id="cart-preview-items"></div>
+      <div class="cart-preview-total">
+        <p>Total: <span id="cart-preview-total">$0</span></p>
+      </div>
+      <div class="cart-preview-buttons">
+        <a href="carrito.html" class="btn btn-ver-carrito">Ver Carrito</a>
+        <button class="btn btn-vaciar-mini" onclick="vaciarCarrito()">Vaciar</button>
       </div>
     </div>
-
-    <header class="main-header">
-      <div class="header-container">
-        <div class="logo-container">
-          <h1>Artesanías Ancestrales</h1>
+  </div>
+  
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="img/Imagen2.png" alt="Logo" width="100" class="logo">
+        </a>
+      </div>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+          <li class="dropdown">
+            <a href="productos.html"><i class="fas fa-store"></i> Productos</a>
+            <div class="dropdown-content">
+              <a href="productos.html?categoria=textiles">Textiles</a>
+              <a href="productos.html?categoria=joyeria">Joyería</a>
+              <a href="productos.html?categoria=ceramica">Cerámica</a>
+            </div>
+          </li>
+          <li><a href="novedades.html"><i class="fas fa-star"></i> Novedades</a></li>
+          <li><a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a></li>
+          <li><a href="about.html"><i class="fas fa-users"></i> Sobre Nosotros</a></li>
+          <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-icons">
+        <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <section>
+      <h2>Catálogo de Artesanías</h2>
+      <div class="categorias">
+        <button class="btn" onclick="filtrarCategoria('todos')">Todos</button>
+        <button class="btn" onclick="filtrarCategoria('textiles')">Textiles</button>
+        <button class="btn" onclick="filtrarCategoria('joyeria')">Joyería</button>
+        <button class="btn" onclick="filtrarCategoria('ceramica')">Cerámica</button>
+      </div>
+      
+      <div class="productos-grid" id="lista-productos">
+        <div class="producto-card" data-categoria="textiles">
+          <img src="img/Mochila wayuu.png" width="300" height="200" alt="Mochila Wayuu" class="producto-img">
+          <div class="producto-info">
+            <h3>Mochila Wayuu</h3>
+            <p>Tejido a mano por artesanas de la comunidad Wayuu de La Guajira.</p>
+            <p class="producto-precio">$120.000</p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(1)">Añadir al Carrito</button>
+          </div>
         </div>
-
-        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-          <i class="fas fa-bars"></i>
-        </button>
-
-        <nav class="main-nav" id="mainNav">
-          <ul>
-            <li>
-              <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
-            </li>
-            <li class="dropdown">
-              <a href="productos.html"
-                ><i class="fas fa-store"></i> Productos</a
-              >
-              <div class="dropdown-content">
-                <a href="productos.html?categoria=textiles">Textiles</a>
-                <a href="productos.html?categoria=joyeria">Joyería</a>
-                <a href="productos.html?categoria=ceramica">Cerámica</a>
-              </div>
-            </li>
-            <li>
-              <a href="novedades.html"><i class="fas fa-star"></i> Novedades</a>
-            </li>
-            <li>
-              <a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a>
-            </li>
-            <li>
-              <a href="about.html"
-                ><i class="fas fa-users"></i> Sobre Nosotros</a
-              >
-            </li>
-            <li>
-              <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
-            </li>
-            <li>
-              <a href="contacto.html"
-                ><i class="fas fa-envelope"></i> Contacto</a
-              >
-            </li>
-          </ul>
-        </nav>
-
-        <div class="header-icons">
-          <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
-            <i class="fas fa-user"></i>
-          </a>
+        
+        <div class="producto-card" data-categoria="joyeria">
+          <img src="img/Collar vera.png" width="300" height="200" alt="Collar Embera" class="producto-img">
+          <div class="producto-info">
+            <h3>Collar Embera</h3>
+            <p>Elaborado con cuentas naturales y diseños tradicionales Embera.</p>
+            <p class="producto-precio">$45.000</p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(2)">Añadir al Carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto-card" data-categoria="ceramica">
+          <img src="img/Ceramica.png" width="300" height="200" alt="Cerámica Ticuna" class="producto-img">
+          <div class="producto-info">
+            <h3>Cerámica Ticuna</h3>
+            <p>Pieza de cerámica con pigmentos naturales de la Amazonía.</p>
+            <p class="producto-precio">$85.000</p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(3)">Añadir al Carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto-card" data-categoria="textiles">
+          <img src="img/Hamaca Artesanal.png" width="300" height="200" alt="Hamaca Artesanal" class="producto-img">
+          <div class="producto-info">
+            <h3>Hamaca Artesanal</h3>
+            <p>Tejida a mano con algodón natural por artesanos del Amazonas.</p>
+            <p class="producto-precio">$250.000</p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(4)">Añadir al Carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto-card" data-categoria="joyeria">
+          <img src="img/Pulsera Kogi.png" width="300" height="200" alt="Pulsera Kogi" class="producto-img">
+          <div class="producto-info">
+            <h3>Pulsera Kogi</h3>
+            <p>Pulsera tradicional con símbolos de la cosmovisión Kogi.</p>
+            <p class="producto-precio">$35.000</p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(5)">Añadir al Carrito</button>
+          </div>
+        </div>
+        
+        <div class="producto-card" data-categoria="ceramica">
+          <img src="img/Vasija Decorativa.png" width="300" height="200" alt="Vasija Decorativa" class="producto-img">
+          <div class="producto-info">
+            <h3>Vasija Decorativa</h3>
+            <p>Vasija de barro decorada con motivos ancestrales.</p>
+            <p class="producto-precio">$95.000</p>
+            <button class="btn btn-add" onclick="agregarAlCarrito(6)">Añadir al Carrito</button>
+          </div>
         </div>
       </div>
-    </header>
-
-    <main>
-      <section>
-        <h2>Catálogo de Artesanías</h2>
-        <div class="categorias">
-          <button class="btn" onclick="filtrarCategoria('todos')">Todos</button>
-          <button class="btn" onclick="filtrarCategoria('textiles')">
-            Textiles
-          </button>
-          <button class="btn" onclick="filtrarCategoria('joyeria')">
-            Joyería
-          </button>
-          <button class="btn" onclick="filtrarCategoria('ceramica')">
-            Cerámica
-          </button>
-        </div>
-
-        <div class="productos-grid" id="lista-productos">
-          <div class="producto-card" data-categoria="textiles">
-            <img
-              src="https://via.placeholder.com/300x200?text=Mochila+Wayuu"
-              alt="Mochila Wayuu"
-              class="producto-img"
-            />
-            <div class="producto-info">
-              <h3>Mochila Wayuu</h3>
-              <p>
-                Tejido a mano por artesanas de la comunidad Wayuu de La Guajira.
-              </p>
-              <p class="producto-precio">$120.000</p>
-              <button class="btn btn-add" onclick="agregarAlCarrito(1)">
-                Añadir al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div class="producto-card" data-categoria="joyeria">
-            <img
-              src="https://via.placeholder.com/300x200?text=Collar+Embera"
-              alt="Collar Embera"
-              class="producto-img"
-            />
-            <div class="producto-info">
-              <h3>Collar Embera</h3>
-              <p>
-                Elaborado con cuentas naturales y diseños tradicionales Embera.
-              </p>
-              <p class="producto-precio">$45.000</p>
-              <button class="btn btn-add" onclick="agregarAlCarrito(2)">
-                Añadir al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div class="producto-card" data-categoria="ceramica">
-            <img
-              src="https://via.placeholder.com/300x200?text=Cerámica+Ticuna"
-              alt="Cerámica Ticuna"
-              class="producto-img"
-            />
-            <div class="producto-info">
-              <h3>Cerámica Ticuna</h3>
-              <p>Pieza de cerámica con pigmentos naturales de la Amazonía.</p>
-              <p class="producto-precio">$85.000</p>
-              <button class="btn btn-add" onclick="agregarAlCarrito(3)">
-                Añadir al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div class="producto-card" data-categoria="textiles">
-            <img
-              src="https://via.placeholder.com/300x200?text=Hamaca+Artesanal"
-              alt="Hamaca Artesanal"
-              class="producto-img"
-            />
-            <div class="producto-info">
-              <h3>Hamaca Artesanal</h3>
-              <p>
-                Tejida a mano con algodón natural por artesanos del Amazonas.
-              </p>
-              <p class="producto-precio">$250.000</p>
-              <button class="btn btn-add" onclick="agregarAlCarrito(4)">
-                Añadir al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div class="producto-card" data-categoria="joyeria">
-            <img
-              src="https://via.placeholder.com/300x200?text=Pulsera+Kogi"
-              alt="Pulsera Kogi"
-              class="producto-img"
-            />
-            <div class="producto-info">
-              <h3>Pulsera Kogi</h3>
-              <p>Pulsera tradicional con símbolos de la cosmovisión Kogi.</p>
-              <p class="producto-precio">$35.000</p>
-              <button class="btn btn-add" onclick="agregarAlCarrito(5)">
-                Añadir al Carrito
-              </button>
-            </div>
-          </div>
-
-          <div class="producto-card" data-categoria="ceramica">
-            <img
-              src="https://via.placeholder.com/300x200?text=Vasija+Decorativa"
-              alt="Vasija Decorativa"
-              class="producto-img"
-            />
-            <div class="producto-info">
-              <h3>Vasija Decorativa</h3>
-              <p>Vasija de barro decorada con motivos ancestrales.</p>
-              <p class="producto-precio">$95.000</p>
-              <button class="btn btn-add" onclick="agregarAlCarrito(6)">
-                Añadir al Carrito
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div>
-        <p>
-          &copy; 2025 Artesanías Ancestrales - Todos los derechos reservados
-        </p>
-        <div class="social-media">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div>
+      <p>&copy; 2025 Artesanías Ancestrales - Todos los derechos reservados</p>
+      <div class="social-media">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
       </div>
-    </footer>
-
-    <script>
-      function filtrarCategoria(categoria) {
-        const productos = document.querySelectorAll(".producto-card");
-        productos.forEach((producto) => {
-          if (
-            categoria === "todos" ||
-            producto.dataset.categoria === categoria
-          ) {
-            producto.style.display = "block";
-          } else {
-            producto.style.display = "none";
-          }
-        });
-
-        // Actualizar URL sin recargar la página
-        if (categoria !== "todos") {
-          history.replaceState(null, null, `?categoria=${categoria}`);
+    </div>
+  </footer>
+  
+  <script>
+    function filtrarCategoria(categoria) {
+      const productos = document.querySelectorAll('.producto-card');
+      productos.forEach(producto => {
+        if (categoria === 'todos' || producto.dataset.categoria === categoria) {
+          producto.style.display = 'block';
         } else {
-          history.replaceState(null, null, window.location.pathname);
+          producto.style.display = 'none';
         }
+      });
+      
+      // Actualizar URL sin recargar la página
+      if (categoria !== 'todos') {
+        history.replaceState(null, null, `?categoria=${categoria}`);
+      } else {
+        history.replaceState(null, null, window.location.pathname);
       }
-    </script>
-    <script src="js/productos.js"></script>
-    <script src="js/carrito.js"></script>
-    <script src="js/menu.js"></script>
-  </body>
+    }
+  </script>
+  <script src="js/productos.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/menu.js"></script>
+</body>
 </html>
