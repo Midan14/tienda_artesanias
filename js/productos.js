@@ -96,7 +96,9 @@ const todosLosProductos = [
 // Función para actualizar los botones de categoría
 function actualizarBotonesCategorias(categoriaFiltro) {
   const botonesCategorias = document.querySelectorAll(".categorias .btn");
-  if (!botonesCategorias || botonesCategorias.length === 0) return;
+  if (!botonesCategorias || botonesCategorias.length === 0) {
+    return;
+  }
 
   for (const btn of botonesCategorias) {
     if (btn.dataset.categoria === categoriaFiltro) {
@@ -169,12 +171,14 @@ function mostrarProductosEnContenedor(productos, contenedor) {
         <img src="${producto.imagen}" alt="${producto.nombre}">
         <h3>${producto.nombre}</h3>
         <p>${producto.descripcion}</p>
-        <p class="precio">$${producto.precioOferta
-        ? `<span class="oferta">${producto.precio}</span> ${producto.precioOferta}`
-        : producto.precio
-      }</p>
-        <button class="btn-agregar" data-id="${producto.id
-      }">Agregar al carrito</button>
+        <p class="precio">$${
+          producto.precioOferta
+            ? `<span class="oferta">${producto.precio}</span> ${producto.precioOferta}`
+            : producto.precio
+        }</p>
+        <button class="btn-agregar" data-id="${
+          producto.id
+        }">Agregar al carrito</button>
       </div>
     `;
     contenedor.innerHTML += productoHTML;
@@ -183,7 +187,6 @@ function mostrarProductosEnContenedor(productos, contenedor) {
 
 // Inicializar al cargar el DOM
 document.addEventListener("DOMContentLoaded", () => {
-  
   // Actualizar la variable global productos para carrito.js
   window.productos = todosLosProductos;
 
