@@ -226,7 +226,9 @@ footer {
   margin-top: 1rem;
 }
 
-.btn-pagar, .btn-vaciar, .btn-seguir {
+.btn-pagar,
+.btn-vaciar,
+.btn-seguir {
   width: 100%;
   margin: 1rem 0;
   border: none;
@@ -823,11 +825,11 @@ footer {
     width: 280px;
     right: -70px;
   }
-  
+
   .cart-preview-buttons {
     height: auto;
   }
-  
+
   .cart-preview-buttons .btn {
     height: 44px;
     font-size: 0.85rem;
@@ -869,7 +871,7 @@ footer {
 }
 
 /* Aseguramos que los botones de acción del carrito tengan el mismo tamaño */
-.cart-preview-buttons a, 
+.cart-preview-buttons a,
 .cart-preview-buttons button {
   min-width: calc(50% - 8px);
   width: calc(50% - 8px);
@@ -883,6 +885,5 @@ img[src*="Máscara Ritual.png"] {
   display: block;
   border: none;
   outline: none;
-  vertical-align: bottom;
   box-shadow: none;
 }
