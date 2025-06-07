@@ -263,7 +263,10 @@
         </div>
 
         <div id="login-tab" class="tab-content active">
-          <form class="contacto-form">
+          <div id="error-message" style="display: none; color: red; margin-bottom: 1rem; padding: 0.5rem; background-color: #ffe6e6; border: 1px solid #ff9999; border-radius: 4px;"></div>
+          <div id="success-message" style="display: none; color: green; margin-bottom: 1rem; padding: 0.5rem; background-color: #e6ffe6; border: 1px solid #99ff99; border-radius: 4px;"></div>
+          
+          <form id="login-form" class="contacto-form">
             <div class="form-group">
               <label for="login-email">Correo Electrónico</label>
               <input type="email" id="login-email" name="email" required />
@@ -296,8 +299,7 @@
             </div>
 
             <button
-              type="button"
-              onclick="iniciarSesion()"
+              type="submit"
               class="btn"
               style="width: 100%"
             >
@@ -307,10 +309,10 @@
         </div>
 
         <div id="register-tab" class="tab-content">
-          <form class="contacto-form">
+          <form id="register-form" class="contacto-form">
             <div class="form-group">
               <label for="register-name">Nombre Completo</label>
-              <input type="text" id="register-name" name="name" required />
+              <input type="text" id="register-name" name="nombre" required />
             </div>
 
             <div class="form-group">
@@ -335,7 +337,7 @@
               <input
                 type="password"
                 id="register-confirm-password"
-                name="confirm-password"
+                name="confirmPassword"
                 required
               />
             </div>
@@ -350,8 +352,7 @@
             </div>
 
             <button
-              type="button"
-              onclick="registrarUsuario()"
+              type="submit"
               class="btn"
               style="width: 100%"
             >
@@ -731,8 +732,10 @@
         document.getElementById("account-section").style.display = "none";
       }
     </script>
+    <script src="js/auth.js"></script>
     <script src="js/productos.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/mis-pedidos.js"></script>
   </body>
 </html>

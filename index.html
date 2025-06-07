@@ -44,19 +44,13 @@
         <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
           <i class="fas fa-user"></i>
         </a>
-        <a href="carrito.html" class="icon-link" aria-label="Carrito de compras" onclick="mostrarPreviewCarrito(); return false;">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="badge" id="cart-counter">0</span>
-        </a>
-        <div class="cart-preview" id="cart-preview" aria-hidden="true">
-          <h3>Tu Carrito</h3>
-          <div id="cart-preview-items"></div>
-          <div class="cart-preview-total">
-            <p>Total: <span id="cart-preview-total">$0</span></p>
-          </div>
-          <div class="cart-preview-buttons">
-            <a href="carrito.html" class="btn btn-ver-carrito">Ver Carrito</a>
-            <button class="btn btn-vaciar-mini" onclick="vaciarCarrito()">Vaciar</button>
+        <div style="position: relative;">
+          <a href="carrito.html" class="icon-link" aria-label="Carrito de compras" onclick="mostrarPreviewCarrito(); return false;">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="badge" id="cart-counter">0</span>
+          </a>
+          <div class="cart-preview" id="cart-preview" aria-hidden="true">
+            <!-- El contenido se genera dinámicamente por JavaScript -->
           </div>
         </div>
       </div>
@@ -120,6 +114,7 @@
       </div>
     </div>
   </footer>
+  <script src="js/observer-utils.js"></script>
   <script src="js/productos.js"></script>
   <script src="js/carrito.js"></script>
   <script src="js/menu.js"></script>

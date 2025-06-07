@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador - Artesanías Ancestrales</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid #D2691E;
+        }
+
+        .stat-card h3 {
+            color: #8B4513;
+            margin: 0 0 10px 0;
+        }
+
+        .stat-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #D2691E;
+        }
+
+        .admin-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .admin-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .admin-section h3 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #D2691E;
+        }
+
+        .admin-btn {
+            background: linear-gradient(135deg, #D2691E 0%, #8B4513 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .product-list, .user-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            background: #8B4513 !important;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .logout-btn:hover {
+            background: #6D2E0A !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .welcome-msg {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <button class="admin-btn logout-btn" onclick="logout()">Cerrar Sesión</button>
+        
+        <div class="admin-header">
+            <h1>🏛️ Panel de Administrador</h1>
+            <p>Gestiona tu tienda de artesanías ancestrales</p>
+        </div>
+
+        <div class="welcome-msg">
+            <strong>¡Bienvenido, Administrador!</strong> Desde aquí puedes gestionar todos los aspectos de tu tienda.
+        </div>
+
+        <div class="admin-stats">
+            <div class="stat-card">
+                <h3>📦 Productos</h3>
+                <div class="number" id="totalProducts">0</div>
+                <p>Total de productos</p>
+            </div>
+            <div class="stat-card">
+                <h3>👥 Usuarios</h3>
+                <div class="number" id="totalUsers">0</div>
+                <p>Usuarios registrados</p>
+            </div>
+            <div class="stat-card">
+                <h3>🛒 Pedidos</h3>
+                <div class="number">0</div>
+                <p>Pedidos pendientes</p>
+            </div>
+            <div class="stat-card">
+                <h3>💰 Ventas</h3>
+                <div class="number">$0</div>
+                <p>Ventas del mes</p>
+            </div>
+        </div>
+
+        <div class="admin-sections">
+            <div class="admin-section">
+                <h3>📦 Gestión de Productos</h3>
+                <button class="admin-btn" onclick="showAddProductForm()">➕ Agregar Producto</button>
+                <button class="admin-btn" onclick="loadProducts()">📋 Ver Productos</button>
+                <button class="admin-btn" onclick="exportProducts()">📊 Exportar Lista</button>
+                
+                <div id="productsList" class="product-list">
+                    <div class="loading">Cargando productos...</div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>👥 Gestión de Usuarios</h3>
+                <button class="admin-btn" onclick="loadUsers()">👥 Ver Usuarios</button>
+                <button class="admin-btn" onclick="exportUsers()">📊 Exportar Lista</button>
+                
+                <div id="usersList" class="user-list">
+                    <div class="loading">Cargando usuarios...</div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>🛒 Gestión de Pedidos</h3>
+                <button class="admin-btn" onclick="loadOrders()">📋 Ver Pedidos</button>
+                <button class="admin-btn" onclick="loadPendingOrders()">⏳ Pedidos Pendientes</button>
+                <button class="admin-btn" onclick="generateReport()">📊 Generar Reporte</button>
+                
+                <div id="ordersList" class="order-list">
+                    <div class="loading">Cargando pedidos...</div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <h3>⚙️ Configuración</h3>
+                <button class="admin-btn" onclick="backupDatabase()">💾 Respaldar Base de Datos</button>
+                <button class="admin-btn" onclick="clearCache()">🗑️ Limpiar Caché</button>
+                <button class="admin-btn" onclick="viewLogs()">📝 Ver Logs</button>
+                <button class="admin-btn" onclick="manageSettings()">⚙️ Configuraciones</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticación al cargar la página (versión simplificada)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si viene de login directo
+            const adminAccess = localStorage.getItem('adminAccess');
+            
+            if (!adminAccess) {
+                showLoginForm();
+                return;
+            }
+            
+            // Si ya está logueado, mostrar dashboard
+            showDashboard();
+            loadDashboardData();
+        });
+
+        function showLoginForm() {
+            const container = document.querySelector('.admin-container');
+            container.innerHTML = `
+                <div style="max-width: 400px; margin: 100px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: #8B4513; margin-bottom: 10px;">🔐 Acceso Administrativo</h2>
+                        <p style="color: #666;">Ingresa las credenciales de administrador</p>
+                    </div>
+                    
+                    <form id="adminLoginForm" style="margin-bottom: 20px;">
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; color: #8B4513; font-weight: 500;">Usuario:</label>
+                            <input type="text" id="adminUser" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; box-sizing: border-box;">
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; color: #8B4513; font-weight: 500;">Contraseña:</label>
+                            <input type="password" id="adminPass" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; box-sizing: border-box;">
+                        </div>
+                        
+                        <button type="submit" style="width: 100%; background: linear-gradient(135deg, #D2691E 0%, #8B4513 100%); color: white; border: none; padding: 12px; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: 500;">
+                            🔑 Acceder al Panel
+                        </button>
+                    </form>
+                    
+                    <div id="loginError" style="color: #dc3545; text-align: center; display: none; margin-top: 10px;"></div>
+                    
+                    <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; margin-top: 20px; text-align: center; font-size: 14px;">
+                        <strong>Credenciales de prueba:</strong><br>
+                        Usuario: <code>admin</code><br>
+                        Contraseña: <code>artesanias2025</code>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <a href="index.html" style="color: #8B4513; text-decoration: none; font-size: 14px;">← Volver al sitio principal</a>
+                    </div>
+                </div>
+            `;
+            
+            // Agregar event listener al formulario
+            document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleAdminLogin();
+            });
+        }
+
+        function handleAdminLogin() {
+            const username = document.getElementById('adminUser').value;
+            const password = document.getElementById('adminPass').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            // Credenciales de prueba
+            if (username === 'admin' && password === 'artesanias2025') {
+                localStorage.setItem('adminAccess', 'true');
+                localStorage.setItem('adminUser', username);
+                showDashboard();
+                loadDashboardData();
+                errorDiv.style.display = 'none';
+            } else {
+                errorDiv.textContent = '❌ Usuario o contraseña incorrectos';
+                errorDiv.style.display = 'block';
+                document.getElementById('adminPass').value = '';
+            }
+        }
+
+        function showDashboard() {
+            const container = document.querySelector('.admin-container');
+            const adminUser = localStorage.getItem('adminUser') || 'admin';
+            
+            container.innerHTML = `
+                <button class="admin-btn logout-btn" onclick="logout()">Cerrar Sesión</button>
+                
+                <div class="admin-header">
+                    <h1>🏛️ Panel de Administrador</h1>
+                    <p>Gestiona tu tienda de artesanías ancestrales</p>
+                </div>
+
+                <div class="welcome-msg">
+                    <strong>¡Bienvenido, ${adminUser}!</strong> Desde aquí puedes gestionar todos los aspectos de tu tienda.
+                </div>
+
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <h3>📦 Productos</h3>
+                        <div class="number" id="totalProducts">12</div>
+                        <p>Total de productos</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👥 Usuarios</h3>
+                        <div class="number" id="totalUsers">156</div>
+                        <p>Usuarios registrados</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>🛒 Pedidos</h3>
+                        <div class="number">23</div>
+                        <p>Pedidos pendientes</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>💰 Ventas</h3>
+                        <div class="number">$2,450,000</div>
+                        <p>Ventas del mes</p>
+                    </div>
+                </div>
+
+                <div class="admin-sections">
+                    <div class="admin-section">
+                        <h3>📦 Gestión de Productos</h3>
+                        <button class="admin-btn" onclick="showAddProductForm()">➕ Agregar Producto</button>
+                        <button class="admin-btn" onclick="loadProducts()">📋 Ver Productos</button>
+                        <button class="admin-btn" onclick="exportProducts()">📊 Exportar Lista</button>
+                        
+                        <div id="productsList" class="product-list">
+                            <div class="item">
+                                <div>
+                                    <strong>Mochila Wayuu</strong><br>
+                                    <small>$120,000 - Stock: 15</small>
+                                </div>
+                                <div>
+                                    <button class="admin-btn" onclick="editProduct('1')">✏️</button>
+                                    <button class="admin-btn" onclick="deleteProduct('1')" style="background: #dc3545;">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <strong>Collar Embera</strong><br>
+                                    <small>$45,000 - Stock: 8</small>
+                                </div>
+                                <div>
+                                    <button class="admin-btn" onclick="editProduct('2')">✏️</button>
+                                    <button class="admin-btn" onclick="deleteProduct('2')" style="background: #dc3545;">🗑️</button>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <strong>Cerámica Ticuna</strong><br>
+                                    <small>$85,000 - Stock: 5</small>
+                                </div>
+                                <div>
+                                    <button class="admin-btn" onclick="editProduct('3')">✏️</button>
+                                    <button class="admin-btn" onclick="deleteProduct('3')" style="background: #dc3545;">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3>👥 Gestión de Usuarios</h3>
+                        <button class="admin-btn" onclick="loadUsers()">👥 Ver Usuarios</button>
+                        <button class="admin-btn" onclick="exportUsers()">📊 Exportar Lista</button>
+                        
+                        <div id="usersList" class="user-list">
+                            <div class="item">
+                                <div>
+                                    <strong>María García</strong><br>
+                                    <small>maria@email.com - Cliente</small>
+                                </div>
+                                <div>
+                                    <span style="color: green">✅</span>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <strong>Carlos López</strong><br>
+                                    <small>carlos@email.com - Cliente</small>
+                                </div>
+                                <div>
+                                    <span style="color: green">✅</span>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div>
+                                    <strong>Ana Rodríguez</strong><br>
+                                    <small>ana@email.com - Cliente</small>
+                                </div>
+                                <div>
+                                    <span style="color: green">✅</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3>🛒 Gestión de Pedidos</h3>
+                        <button class="admin-btn" onclick="loadOrders()">📋 Ver Pedidos</button>
+                        <button class="admin-btn" onclick="loadPendingOrders()">⏳ Pedidos Pendientes</button>
+                        <button class="admin-btn" onclick="generateReport()">📊 Generar Reporte</button>
+                        
+                        <div id="ordersList" class="order-list">
+                            <div class="item" style="flex-direction: column; align-items: flex-start; padding: 15px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 5px;">
+                                <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <div>
+                                        <strong>📦 #001</strong><br>
+                                        <small>👤 María García</small>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span style="background: #fff3cd; color: #856404; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">PENDIENTE</span><br>
+                                        <strong style="color: #D2691E;">$165,000</strong>
+                                    </div>
+                                </div>
+                                <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #666;">
+                                    <span>📅 06/06/2025</span>
+                                    <span>💳 Tarjeta</span>
+                                </div>
+                            </div>
+                            <div class="item" style="flex-direction: column; align-items: flex-start; padding: 15px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 5px;">
+                                <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <div>
+                                        <strong>📦 #002</strong><br>
+                                        <small>👤 Carlos López</small>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span style="background: #d4edda; color: #155724; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">ENTREGADO</span><br>
+                                        <strong style="color: #D2691E;">$85,000</strong>
+                                    </div>
+                                </div>
+                                <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #666;">
+                                    <span>📅 05/06/2025</span>
+                                    <span>💳 PSE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3>⚙️ Configuración</h3>
+                        <button class="admin-btn" onclick="backupDatabase()">💾 Respaldar Base de Datos</button>
+                        <button class="admin-btn" onclick="clearCache()">🗑️ Limpiar Caché</button>
+                        <button class="admin-btn" onclick="viewLogs()">📝 Ver Logs</button>
+                        <button class="admin-btn" onclick="manageSettings()">⚙️ Configuraciones</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkAuthentication() {
+            // Función mantenida para compatibilidad
+            return true;
+        }
+
+        async function loadDashboardData() {
+            try {
+                await loadProducts();
+                await loadUsers();
+                await loadOrders();
+                updateStats();
+            } catch (error) {
+                console.error('Error cargando datos del dashboard:', error);
+            }
+        }
+
+        async function loadProducts() {
+            try {
+                const response = await fetch('http://localhost:5000/api/products');
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayProducts(data.data.products);
+                    document.getElementById('totalProducts').textContent = data.data.products.length;
+                } else {
+                    document.getElementById('productsList').innerHTML = '<p>Error cargando productos</p>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('productsList').innerHTML = '<p>Error conectando con el servidor</p>';
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                const token = localStorage.getItem('authToken');
+                console.log('🔑 Token para usuarios:', token ? 'Existe' : 'No existe');
+                
+                const response = await fetch('http://localhost:5000/api/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                console.log('📡 Respuesta del servidor:', response.status);
+                const data = await response.json();
+                console.log('📋 Datos recibidos:', data);
+                
+                if (data.success) {
+                    displayUsers(data.data);
+                    document.getElementById('totalUsers').textContent = data.data.length;
+                } else {
+                    console.error('❌ Error del servidor:', data.message);
+                    document.getElementById('usersList').innerHTML = `<p>Error: ${data.message}</p>`;
+                }
+            } catch (error) {
+                console.error('❌ Error en loadUsers:', error);
+                document.getElementById('usersList').innerHTML = '<p>Error conectando con el servidor</p>';
+            }
+        }
+
+        function displayProducts(products) {
+            const container = document.getElementById('productsList');
+            if (products.length === 0) {
+                container.innerHTML = '<p>No hay productos registrados</p>';
+                return;
+            }
+
+            container.innerHTML = products.map(product => `
+                <div class="item">
+                    <div>
+                        <strong>${product.nombre}</strong><br>
+                        <small>$${product.precio?.toLocaleString()} - Stock: ${product.stock}</small>
+                    </div>
+                    <div>
+                        <button class="admin-btn" onclick="editProduct('${product._id}')">✏️</button>
+                        <button class="admin-btn" onclick="deleteProduct('${product._id}')" style="background: #dc3545;">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayUsers(users) {
+            const container = document.getElementById('usersList');
+            if (users.length === 0) {
+                container.innerHTML = '<p>No hay usuarios registrados</p>';
+                return;
+            }
+
+            container.innerHTML = users.map(user => `
+                <div class="item">
+                    <div>
+                        <strong>${user.nombre}</strong><br>
+                        <small>${user.email} - ${user.role}</small>
+                    </div>
+                    <div>
+                        <span style="color: ${user.activo ? 'green' : 'red'}">
+                            ${user.activo ? '✅' : '❌'}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            // Aquí puedes añadir más lógica para calcular estadísticas
+            console.log('Estadísticas actualizadas');
+        }
+
+        // Funciones de gestión
+        function showAddProductForm() {
+            alert('Función de agregar producto en desarrollo');
+        }
+
+        function editProduct(id) {
+            alert(`Editar producto ID: ${id}`);
+        }
+
+        function deleteProduct(id) {
+            if (confirm('¿Estás seguro de eliminar este producto?')) {
+                alert(`Eliminar producto ID: ${id}`);
+            }
+        }
+
+        function exportProducts() {
+            alert('Exportando lista de productos...');
+        }
+
+        function exportUsers() {
+            alert('Exportando lista de usuarios...');
+        }
+
+        async function loadOrders() {
+            try {
+                const token = localStorage.getItem('authToken');
+                console.log('🛒 Cargando pedidos...');
+                
+                const response = await fetch('http://localhost:5000/api/pedidos', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                console.log('📡 Respuesta pedidos:', response.status);
+                const data = await response.json();
+                console.log('📦 Datos de pedidos:', data);
+                
+                if (data.success) {
+                    displayOrders(data.data);
+                    updateOrderStats(data.data);
+                } else {
+                    console.error('❌ Error del servidor:', data.message);
+                    document.getElementById('ordersList').innerHTML = `<p>Error: ${data.message}</p>`;
+                }
+            } catch (error) {
+                console.error('❌ Error en loadOrders:', error);
+                document.getElementById('ordersList').innerHTML = '<p>Error conectando con el servidor</p>';
+            }
+        }
+
+        function displayOrders(orders) {
+            const container = document.getElementById('ordersList');
+            if (orders.length === 0) {
+                container.innerHTML = '<p>No hay pedidos registrados</p>';
+                return;
+            }
+
+            container.innerHTML = orders.map(order => `
+                <div class="item" style="flex-direction: column; align-items: flex-start; padding: 15px; border: 1px solid #eee; margin-bottom: 10px; border-radius: 5px;">
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div>
+                            <strong>📦 ${order.numeroPedido}</strong><br>
+                            <small>👤 ${order.usuario.nombre} (${order.usuario.email})</small>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="estado-badge estado-${order.estado}" style="display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; background: #f8f9fa; color: #666;">
+                                ${order.estado.toUpperCase()}
+                            </span><br>
+                            <strong style="color: #D2691E;">$${order.totales.total.toLocaleString()}</strong>
+                        </div>
+                    </div>
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #666;">
+                        <span>📅 ${new Date(order.fechaCreacion).toLocaleDateString('es-CO')}</span>
+                        <span>💳 ${getPaymentMethodName(order.metodoPago)}</span>
+                    </div>
+                    <div style="width: 100%; margin-top: 10px;">
+                        <button class="admin-btn" onclick="viewOrderDetails('${order._id}')" style="font-size: 12px; padding: 5px 10px;">👁️ Ver</button>
+                        <button class="admin-btn" onclick="updateOrderStatus('${order._id}', '${order.estado}')" style="font-size: 12px; padding: 5px 10px; background: #28a745;">📝 Estado</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getPaymentMethodName(method) {
+            const methods = {
+                'tarjeta': 'Tarjeta',
+                'pse': 'PSE',
+                'transferencia': 'Transferencia',
+                'contraentrega': 'Contra Entrega'
+            };
+            return methods[method] || method;
+        }
+
+        function updateOrderStats(orders) {
+            const pendingOrders = orders.filter(order => order.estado === 'pendiente').length;
+            const monthSales = orders
+                .filter(order => new Date(order.fechaCreacion).getMonth() === new Date().getMonth())
+                .reduce((total, order) => total + order.totales.total, 0);
+            
+            // Actualizar estadísticas en el dashboard
+            const statsCards = document.querySelectorAll('.stat-card .number');
+            if (statsCards[2]) statsCards[2].textContent = pendingOrders;
+            if (statsCards[3]) statsCards[3].textContent = `$${monthSales.toLocaleString()}`;
+        }
+
+        function loadPendingOrders() {
+            loadOrders().then(() => {
+                // Filtrar solo pedidos pendientes
+                const container = document.getElementById('ordersList');
+                const allItems = container.querySelectorAll('.item');
+                
+                allItems.forEach(item => {
+                    if (!item.innerHTML.includes('PENDIENTE')) {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function viewOrderDetails(orderId) {
+            // Crear modal o ventana con detalles del pedido
+            alert(`Ver detalles del pedido: ${orderId}\n\n(Esta función abrirá un modal con todos los detalles del pedido)`);
+        }
+
+        async function updateOrderStatus(orderId, currentStatus) {
+            const newStatus = prompt(`Estado actual: ${currentStatus}\n\nNuevo estado (pendiente/confirmado/enviado/entregado/cancelado):`);
+            
+            if (!newStatus || newStatus === currentStatus) return;
+            
+            try {
+                const token = localStorage.getItem('authToken');
+                const response = await fetch(`http://localhost:5000/api/pedidos/${orderId}/estado`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ estado: newStatus })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Estado actualizado correctamente');
+                    loadOrders(); // Recargar pedidos
+                } else {
+                    alert('Error actualizando estado: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error actualizando estado del pedido');
+            }
+        }
+
+        function generateReport() {
+            alert('📊 Generando reporte de pedidos...\n\n• Total de pedidos\n• Ventas por período\n• Métodos de pago más usados\n• Estados de pedidos\n\n(Funcionalidad en desarrollo)');
+        }
+
+        function backupDatabase() {
+            alert('Respaldando base de datos...');
+        }
+
+        function clearCache() {
+            alert('Limpiando caché...');
+        }
+
+        function viewLogs() {
+            alert('Visualizando logs del sistema...');
+        }
+
+        function manageSettings() {
+            alert('Configuraciones del sistema...');
+        }
+
+        function logout() {
+            if (confirm('¿Estás seguro de cerrar sesión?')) {
+                localStorage.removeItem('adminAccess');
+                localStorage.removeItem('adminUser');
+                localStorage.removeItem('authToken');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

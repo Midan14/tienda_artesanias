@@ -1,137 +1,298 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras - Artesanías Ancestrales</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-  </head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .carrito-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 100px;
+        }
 
-  <body>
+        .carrito-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .carrito-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .carrito-items {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .carrito-resumen {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .item-carrito {
+            display: grid;
+            grid-template-columns: 100px 1fr auto auto auto;
+            gap: 15px;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-carrito:last-child {
+            border-bottom: none;
+        }
+
+        .item-imagen {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .item-info h3 {
+            margin: 0 0 10px 0;
+            color: #8B4513;
+        }
+
+        .item-info p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .cantidad-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .cantidad-btn {
+            background: #f8f9fa;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .cantidad-btn:hover {
+            background: #e9ecef;
+        }
+
+        .cantidad-input {
+            border: none;
+            width: 50px;
+            text-align: center;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        .item-precio {
+            font-weight: bold;
+            color: #8B4513;
+            font-size: 18px;
+        }
+
+        .btn-eliminar {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-eliminar:hover {
+            background: #c82333;
+        }
+
+        .resumen-linea {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+        }
+
+        .resumen-total {
+            border-top: 2px solid #D2691E;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #8B4513;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: linear-gradient(135deg, #D2691E 0%, #8B4513 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-checkout:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .carrito-vacio {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .carrito-vacio i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .btn-continuar {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        .btn-continuar:hover {
+            background: #218838;
+        }
+
+        .btn-vaciar {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .btn-vaciar:hover {
+            background: #545b62;
+        }
+
+        @media (max-width: 768px) {
+            .carrito-content {
+                grid-template-columns: 1fr;
+            }
+
+            .item-carrito {
+                grid-template-columns: 80px 1fr;
+                gap: 10px;
+            }
+
+            .item-carrito .cantidad-control,
+            .item-carrito .item-precio,
+            .item-carrito .btn-eliminar {
+                grid-column: 2;
+                margin-top: 10px;
+            }
+
+            .carrito-resumen {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
     <header class="main-header">
-      <div class="header-container">
-        <div class="logo-container">
-          <a href="index.html">
-          <img src="img/Imagen2.png" alt="Logo" width="100" class="logo">
-        </a>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="img/Imagen2.png" alt="Logo" width="100" class="logo">
+                </a>
+            </div>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="productos.html"><i class="fas fa-store"></i> Productos</a></li>
+                    <li><a href="about.html"><i class="fas fa-users"></i> Sobre Nosotros</a></li>
+                    <li><a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="carrito.html" class="icon-link" aria-label="Carrito de compras">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="badge" id="cart-counter">0</span>
+                </a>
+            </div>
         </div>
-
-        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-          <i class="fas fa-bars"></i>
-        </button>
-
-        <nav class="main-nav" id="mainNav">
-          <ul>
-            <li>
-              <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
-            </li>
-            <li class="dropdown">
-              <a href="productos.html"
-                ><i class="fas fa-store"></i> Productos</a
-              >
-              <div class="dropdown-content">
-                <a href="productos.html?categoria=textiles">Textiles</a>
-                <a href="productos.html?categoria=joyeria">Joyería</a>
-                <a href="productos.html?categoria=ceramica">Cerámica</a>
-              </div>
-            </li>
-            <li>
-              <a href="novedades.html"><i class="fas fa-star"></i> Novedades</a>
-            </li>
-            <li>
-              <a href="ofertas.html"><i class="fas fa-tag"></i> Ofertas</a>
-            </li>
-            <li>
-              <a href="about.html"
-                ><i class="fas fa-users"></i> Sobre Nosotros</a
-              >
-            </li>
-            <li>
-              <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
-            </li>
-            <li>
-              <a href="contacto.html"
-                ><i class="fas fa-envelope"></i> Contacto</a
-              >
-            </li>
-          </ul>
-        </nav>
-
-        <div class="header-icons">
-          <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
-            <i class="fas fa-user"></i>
-          </a>
-          <a
-            href="carrito.html"
-            class="icon-link"
-            aria-label="Carrito de compras"
-          >
-            <i class="fas fa-shopping-cart"></i>
-            <span class="badge" id="cart-counter">0</span>
-          </a>
-        </div>
-      </div>
     </header>
-    <main>
-      <section class="carrito-section">
-        <h2>Tu Carrito de Compras</h2>
-        <div class="carrito-contenedor">
-          <div class="carrito-items">
-            <div id="carrito-container" class="carrito-lista"></div>
-          </div>
-          <div class="carrito-resumen">
-            <h3>Resumen de Compra</h3>
-            <div class="resumen-item">
-              <span>Subtotal:</span>
-              <span id="total">$0</span>
-            </div>
-            <div class="resumen-item">
-              <span>Envío:</span>
-              <span>Gratis</span>
-            </div>
-            <hr />
-            <div class="resumen-item total">
-              <span>Total:</span>
-              <span id="total-final">$0</span>
-            </div>
-            <button
-              class="btn btn-pagar"
-              onclick="procesarPago()"
-              id="btn-pagar"
-            >
-              Proceder al Pago
-            </button>
-            <button class="btn btn-vaciar" onclick="vaciarCarrito()">
-              Vaciar Carrito
-            </button>
-            <a href="productos.html" class="btn btn-seguir">Seguir Comprando</a>
-          </div>
+
+    <main class="carrito-container">
+        <div class="carrito-header">
+            <h1><i class="fas fa-shopping-cart"></i> Tu Carrito de Compras</h1>
+            <p>Revisa tus productos antes de proceder al checkout</p>
         </div>
-      </section>
-      <script src="js/carrito.js"></script>
+
+        <div id="carrito-contenido">
+            <!-- El contenido se llenará dinámicamente -->
+        </div>
     </main>
+
     <footer>
-      <div>
-        <p>
-          &copy; 2025 Artesanías Ancestrales - Todos los derechos reservados
-        </p>
-        <div class="social-media">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
+        <div>
+            <p>&copy; 2025 Artesanías Ancestrales - Todos los derechos reservados</p>
+            <div class="social-media">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
         </div>
-      </div>
     </footer>
-    <script src="js/productos.js"></script>
+
+    <script src="js/observer-utils.js"></script>
     <script src="js/carrito.js"></script>
+    <script src="js/carrito-page.js"></script>
     <script src="js/menu.js"></script>
-  </body>
+</body>
 </html>

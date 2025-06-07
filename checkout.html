@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Artesanías Ancestrales</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 100px;
+        }
+
+        .checkout-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .checkout-steps {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .step.active {
+            color: #8B4513;
+            font-weight: 600;
+        }
+
+        .step-number {
+            background: #ddd;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .step.active .step-number {
+            background: #8B4513;
+        }
+
+        .step-separator {
+            width: 50px;
+            height: 2px;
+            background: #ddd;
+            margin: 0 20px;
+        }
+
+        .checkout-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .checkout-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .checkout-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-section h3 {
+            color: #8B4513;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B4513;
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.1);
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .payment-methods {
+            display: grid;
+            gap: 15px;
+        }
+
+        .payment-option {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .payment-option:hover {
+            border-color: #8B4513;
+        }
+
+        .payment-option.selected {
+            border-color: #8B4513;
+            background: #f8f9fa;
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .payment-option-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-icon {
+            font-size: 24px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .card-info {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .card-info.active {
+            display: block;
+        }
+
+        .order-summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-details {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .summary-total {
+            border-top: 2px solid #D2691E;
+            margin-top: 15px;
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #8B4513;
+        }
+
+        .btn-place-order {
+            width: 100%;
+            background: linear-gradient(135deg, #D2691E 0%, #8B4513 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .btn-place-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-place-order:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .security-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-content {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-steps {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .step-separator {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="img/Imagen2.png" alt="Logo" width="100" class="logo">
+                </a>
+            </div>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="carrito.html"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="cuenta.html" class="icon-link" aria-label="Mi cuenta">
+                    <i class="fas fa-user"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="checkout-container">
+        <div class="checkout-header">
+            <h1><i class="fas fa-credit-card"></i> Finalizar Compra</h1>
+            <p>Completa tu información para procesar el pedido</p>
+        </div>
+
+        <div class="checkout-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <span>Carrito</span>
+            </div>
+            <div class="step-separator"></div>
+            <div class="step active">
+                <div class="step-number">2</div>
+                <span>Información</span>
+            </div>
+            <div class="step-separator"></div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <span>Confirmación</span>
+            </div>
+        </div>
+
+        <div class="checkout-content">
+            <div class="checkout-form">
+                <form id="checkout-form">
+                    <!-- Información de Envío -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-shipping-fast"></i> Información de Envío</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre Completo <span class="required">*</span></label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="documento">Cédula/Documento <span class="required">*</span></label>
+                                <input type="text" id="documento" name="documento" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono <span class="required">*</span></label>
+                                <input type="tel" id="telefono" name="telefono" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="direccion">Dirección Completa <span class="required">*</span></label>
+                            <input type="text" id="direccion" name="direccion" placeholder="Calle, Número, Barrio" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ciudad">Ciudad <span class="required">*</span></label>
+                                <select id="ciudad" name="ciudad" required>
+                                    <option value="">Selecciona tu ciudad</option>
+                                    <option value="bogota">Bogotá</option>
+                                    <option value="medellin">Medellín</option>
+                                    <option value="cali">Cali</option>
+                                    <option value="barranquilla">Barranquilla</option>
+                                    <option value="cartagena">Cartagena</option>
+                                    <option value="bucaramanga">Bucaramanga</option>
+                                    <option value="manizales">Manizales</option>
+                                    <option value="pereira">Pereira</option>
+                                    <option value="otra">Otra ciudad</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="codigo_postal">Código Postal</label>
+                                <input type="text" id="codigo_postal" name="codigo_postal">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notas">Notas para la entrega (Opcional)</label>
+                            <textarea id="notas" name="notas" rows="3" placeholder="Instrucciones especiales para la entrega..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Método de Pago -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-credit-card"></i> Método de Pago</h3>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-option" onclick="selectPaymentMethod('tarjeta')">
+                                <div class="payment-option-content">
+                                    <input type="radio" name="metodo_pago" value="tarjeta" id="pago-tarjeta">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-credit-card" style="color: #007bff;"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Tarjeta de Crédito/Débito</strong>
+                                        <p style="margin: 0; font-size: 14px; color: #666;">Visa, Mastercard, American Express</p>
+                                    </div>
+                                </div>
+                                <div class="card-info" id="card-info">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="numero_tarjeta">Número de Tarjeta</label>
+                                            <input type="text" id="numero_tarjeta" name="numero_tarjeta" placeholder="1234 5678 9012 3456" maxlength="19">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nombre_tarjeta">Nombre en la Tarjeta</label>
+                                            <input type="text" id="nombre_tarjeta" name="nombre_tarjeta" placeholder="Nombre como aparece en la tarjeta">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="fecha_expiracion">Fecha de Expiración</label>
+                                            <input type="text" id="fecha_expiracion" name="fecha_expiracion" placeholder="MM/AA" maxlength="5">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cvv">CVV</label>
+                                            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-option" onclick="selectPaymentMethod('pse')">
+                                <div class="payment-option-content">
+                                    <input type="radio" name="metodo_pago" value="pse" id="pago-pse">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-university" style="color: #28a745;"></i>
+                                    </div>
+                                    <div>
+                                        <strong>PSE (Pagos Seguros en Línea)</strong>
+                                        <p style="margin: 0; font-size: 14px; color: #666;">Paga directamente desde tu banco</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-option" onclick="selectPaymentMethod('transferencia')">
+                                <div class="payment-option-content">
+                                    <input type="radio" name="metodo_pago" value="transferencia" id="pago-transferencia">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-exchange-alt" style="color: #ffc107;"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Transferencia Bancaria</strong>
+                                        <p style="margin: 0; font-size: 14px; color: #666;">Te enviaremos los datos bancarios</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-option" onclick="selectPaymentMethod('contraentrega')">
+                                <div class="payment-option-content">
+                                    <input type="radio" name="metodo_pago" value="contraentrega" id="pago-contraentrega">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-truck" style="color: #dc3545;"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Pago Contra Entrega</strong>
+                                        <p style="margin: 0; font-size: 14px; color: #666;">Paga cuando recibas tu pedido</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="checkout-summary">
+                <h3>Resumen del Pedido</h3>
+                <div id="order-items">
+                    <!-- Los items se llenarán dinámicamente -->
+                </div>
+                
+                <div id="order-totals">
+                    <!-- Los totales se llenarán dinámicamente -->
+                </div>
+
+                <button class="btn-place-order" onclick="realizarPedido()">
+                    <i class="fas fa-check"></i> Realizar Pedido
+                </button>
+
+                <div class="security-info">
+                    <i class="fas fa-shield-alt"></i>
+                    Tu información está protegida con encriptación SSL
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/carrito.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
